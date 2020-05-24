@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrderDeliveryServiceService } from '../order-delivery/order-delivery-service.service';
 import { EmpDataService } from '../emp/emp-data.service';
-
+class order{
+  constructor(
+    public order_id:number,
+    public order_delivery_id:number
+  ){}
+}
 @Component({
   selector: 'app-add-order-delivery-assigned',
   templateUrl: './add-order-delivery-assigned.component.html',
@@ -10,7 +15,7 @@ import { EmpDataService } from '../emp/emp-data.service';
 })
 export class AddOrderDeliveryAssignedComponent implements OnInit {
   displayedColumnsOrder:string[]=['check','order_id','customer_name','pro_name'];
-  selectedOrderArr: number[] = [];
+  selectedOrderArr: order[] = [];
   dataSourceOrder= new MatTableDataSource();
 
   displayedColumnsEmployee: string[] = ['check','emp_name'];
@@ -44,7 +49,7 @@ export class AddOrderDeliveryAssignedComponent implements OnInit {
         this.selectedOrderArr.splice(this.selectedOrderArr.indexOf(item.order_id), 1);
     } else
     {
-        this.selectedOrderArr.push(item.order_id);
+        this.selectedOrderArr.push(new order(item.order_id,item.order_delivery_id));
     }
   }
 
